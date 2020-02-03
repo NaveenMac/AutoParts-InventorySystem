@@ -1,12 +1,8 @@
 from django.contrib import admin
-from Car.models import Maker
-from Car.models import ModelLine
-from Car.models import ModelYear
-from Car.models import ModelLine
-from Car.models import ModelListing
+from Car.models import CarMaker
+
+from Car.models import CarList
 # Register your models here.
 
-admin.site.register(Maker)
-admin.site.register(ModelLine)
-admin.site.register(ModelYear)
-admin.site.register(ModelListing)
+admin.site.register(CarMaker)
+admin.site.register(CarList)
