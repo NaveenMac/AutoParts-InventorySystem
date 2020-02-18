@@ -1,35 +1,48 @@
 from django.db import models
+from datetime import datetime
+
+# Create your models here.
 import datetime
-from django.core.validators import MaxValueValidator, MinValueValidator
-from django.utils.timezone import now
-def currentyear():
-    return datetime.date.today().year
+from django.utils import timezone
+
     
-def max_value_current_year(value):
-    return MaxValueValidator(currentyear())(value)
-    
+
+
 # Create your models here.
 class CarMaker(models.Model):
     name = models.CharField(max_length=20)
-    shortName = models.CharField(max_length=10)
-    added_date = models.DateTimeField(auto_now_add=True, blank=True, editable=False)
+    shortName = models.CharField(max_length=4)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+       
+
     
 
 class CarModel(models.Model):
+    DIESEL = 'DL'
+    PETROL = 'PL'
+    CNG = 'CG'
+    
+    FUEL_TYPE_CHOICES = [
+        (DIESEL, 'Diesel'),
+        (PETROL, 'Petrol'),
+        (CNG, 'CNG')
+    ]
+    
     maker = models.ForeignKey(
         CarMaker,
         on_delete = models.CASCADE
     )
-    model = models.CharField(max_length=100,default='-')
-    release_date = models.DateTimeField('date released')
-    closing_date = models.DateTimeField('date closed)
+    model = models.CharField(max_length=100,blank=True)
+    released_on = models.DateField(blank=True,null=True)
+    closed_on = models.DateField(blank=True,null=True)
     engine = models.FloatField()
     power = models.FloatField()
-    fuel_type = EnumField(choices=['Diesel', 'Petrol', 'CNG'])
-    engine_type = models.CharField(max_length=50,default='-')
-    added_date = models.DateTimeField(auto_now_add=True, blank=True, editable=False)
-    
-
-    
-
+    fuel_type = models.CharField(
+        max_length=2,
+        choices = FUEL_TYPE_CHOICES,
+        default = PETROL)
+    engine_type = models.CharField(max_length=50,blank=True)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
     

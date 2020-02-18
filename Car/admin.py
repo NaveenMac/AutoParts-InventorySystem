@@ -1,21 +1,19 @@
 from django.contrib import admin
 from django import forms
-from Car.models import CarMaker
-from Car.models import CarModel
-
+from car.models import CarMaker
+from car.models import CarModel
 # Register your models here.
 
 class CarMakerAdmin(admin.ModelAdmin):
-    fields = ('name','shortName','added_date')
+    fields = ('name','shortName')
     list_display = ('name','short_name')
-    
-    
+
+
     def short_name(self,obj):
         return obj.shortName
-        
-    
+
 class CarModelAdmin(admin.ModelAdmin):
-    fields = ('makerlist','model','release_date','closing_date','engine','power','fuel_type','engine_type','added_date')
+    fields = ('maker','model','released_on','closed_on','engine','power','fuel_type','engine_type')
     list_display = ('maker','model','engine','power','fuel_type','engine_type')
     search_fields = ['carmaker']
     
@@ -35,7 +33,7 @@ class CarModelAdmin(admin.ModelAdmin):
         if db_field.name == 'maker':
             return self.CustomModelChoiceField(queryset = CarMaker.objects)
 
-            return super(CarListAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+            return super(CarModelAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     
 admin.site.register(CarMaker, CarMakerAdmin)
