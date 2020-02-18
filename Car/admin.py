@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django import forms
 from Car.models import CarMaker
-from Car.models import CarModelline
+from Car.models import CarModel
 
 # Register your models here.
 
@@ -14,10 +14,11 @@ class CarMakerAdmin(admin.ModelAdmin):
         return obj.shortName
         
     
-class CarModellineAdmin(admin.ModelAdmin):
-    fields = ('maker','modelline','year','modification','added_date')
-    list_display = ('maker_list','modelline','year','modification')
+class CarModelAdmin(admin.ModelAdmin):
+    fields = ('makerlist','model','release_date','closing_date','engine','power','fuel_type','engine_type','added_date')
+    list_display = ('maker','model','engine','power','fuel_type','engine_type')
     search_fields = ['carmaker']
+    
     def view_car_maker(self,obj):
         return obj.maker.name
 
@@ -38,4 +39,4 @@ class CarModellineAdmin(admin.ModelAdmin):
 
     
 admin.site.register(CarMaker, CarMakerAdmin)
-admin.site.register(CarModelline, CarModellineAdmin)
+admin.site.register(CarModel, CarModelAdmin)
