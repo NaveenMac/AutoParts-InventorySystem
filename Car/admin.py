@@ -13,7 +13,7 @@ class CarMakerAdmin(admin.ModelAdmin):
         return obj.shortName
 
 class CarModelAdmin(admin.ModelAdmin):
-    fields = ('view_car_maker','model','released_on','closed_on','engine','power','fuel_type','engine_type')
+    fields = ('maker','model',('released_on','closed_on'),'engine','power','fuel_type','engine_type')
     list_display = ('maker_list','model','engine','power','fuel_type','engine_type')
     search_fields = ['carmaker']
     
