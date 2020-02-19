@@ -1,4 +1,5 @@
 from django.db import models
+from part.models import PartCategory
 from phone_field import PhoneField
 # Create your models here.
 
@@ -17,4 +18,18 @@ class Brand(models.Model):
     upload = models.ImageField(upload_to='assets/brands/', help_text='upload brand image')
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
+    
+class BrandCategory(models.Model):
+    brand = models.ForeignKey(
+        Brand,
+        on_delete = models.CASCADE
+    )
+    
+    category = models.ForeignKey(
+        PartCategory,
+        on_delete = models.CASCADE
+    )
+    
+
+    
     
