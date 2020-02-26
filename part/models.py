@@ -11,7 +11,9 @@ from category.models import Category
     
     
 class AutoPart(models.Model):
+    part_title = models.CharField(max_length=70)
     part_number = models.CharField(max_length=100)
+    
     feature = RichTextField()
     description = models.TextField(max_length=1000, help_text='Enter a brief description of the part',blank=True)
 
