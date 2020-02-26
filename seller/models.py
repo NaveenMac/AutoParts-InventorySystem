@@ -1,5 +1,6 @@
 from django.db import models
-from part.models import PartCategory
+from django.db.models import Model
+from category.models import Category
 from phone_field import PhoneField
 
 # Create your models here.
@@ -21,7 +22,7 @@ class SellerCategory(models.Model):
     )
     
     category = models.ForeignKey(
-        PartCategory,
+        Category,
         on_delete = models.CASCADE
     )
     

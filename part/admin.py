@@ -1,10 +1,10 @@
 from django.contrib import admin
-from part.models import PartCategory
+from part.models import Category
 
 from django import forms
 # Register your models here.
 
-class PartCategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(admin.ModelAdmin):
     fields = ['name','parent','is_class']
     list_display = ('name','list_parent','is_class','created_on')
     
@@ -22,8 +22,8 @@ class PartCategoryAdmin(admin.ModelAdmin):
     
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == 'parent':
-            return self.CustomModelChoiceField(queryset = PartCategory.objects)
+            return self.CustomModelChoiceField(queryset = Category.objects)
 
-            return super(PartCategoryAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+            return super(CategoryAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
             
-admin.site.register(PartCategory, PartCategoryAdmin)
+admin.site.register(Category, CategoryAdmin)

@@ -1,18 +1,49 @@
 from django.db import models
+from django.db.models import Model
+from djrichtextfield.models import RichTextField
+
 from datetime import datetime
+from brand.models import Brand
+from category.models import Category
 
-# Create your models here.
 
-# Create your models here.
-class PartCategory(models.Model):
-    name = models.CharField(max_length=50)
-    parent = models.ForeignKey(
-           'self',
-           default=None,
-           null=True,
-           blank=True,
-           on_delete=models.CASCADE
-       )
-    is_class = models.BooleanField()
-    created_on = models.DateTimeField(auto_now_add=True)
-    updated_on = models.DateTimeField(auto_now=True)
+
+    
+    
+class AutoPart(models.Model):
+    part_number = models.CharField(max_length=100)
+    feature = RichTextField()
+    description = models.TextField(max_length=1000, help_text='Enter a brief description of the part',blank=True)
+
+class AutoPartCategory(models.Model):
+    autopart = models.ForeignKey(
+        AutoPart,
+        on_delete = models.CASCADE
+    )
+
+    category = models.ForeignKey(
+        Category,
+        on_delete = models.CASCADE
+    )
+
+class AutoPartBrand(models.Model):
+    autopart = models.ForeignKey(
+        AutoPart,
+        on_delete = models.CASCADE
+    )
+
+    brand = models.ForeignKey(
+        Brand,
+        on_delete = models.CASCADE
+    )
+
+
+def get_image_path(instance, filename):
+    autopart_number = instance.autopart.part_number
+    slug = slugify(autopart_number)
+    return "autopart/%s/%s" % (slug, filename)
+
+
+class AutoPartImages(models.Model):
+    autopart = models.ForeignKey(AutoPart, on_delete = models.CASCADE)
+    image = models.ImageField(upload_to=get_image_path, help_text='upload autopart image')

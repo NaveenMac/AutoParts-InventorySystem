@@ -2,7 +2,7 @@ from django.contrib import admin
 from django import forms
 from seller.models import Seller
 from seller.models import SellerCategory
-from part.models import PartCategory
+from part.models import Category
 from django.utils.html import mark_safe
 # Register your models here.
 
@@ -33,9 +33,9 @@ class SellerCategoryAdmin(admin.ModelAdmin):
     
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == 'category':
-            return self.CustomModelChoiceField(queryset = PartCategory.objects)
+            return self.CustomModelChoiceField(queryset = Category.objects)
 
-            return super(PartCategoryAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+            return super(CategoryAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
             
         if db_field.name == 'seller':
             return self.CustomModelChoiceField(queryset = Seller.objects)
