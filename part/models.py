@@ -20,22 +20,26 @@ class AutoPart(models.Model):
 class AutoPartCategory(models.Model):
     autopart = models.ForeignKey(
         AutoPart,
+        default=None,
         on_delete = models.CASCADE
     )
 
     category = models.ForeignKey(
         Category,
-        on_delete = models.DO_NOTHING
+        default=None,
+        on_delete = models.CASCADE
     )
 
 class AutoPartBrand(models.Model):
     autopart = models.ForeignKey(
         AutoPart,
+        default=None,
         on_delete = models.CASCADE
     )
 
     brand = models.ForeignKey(
         Brand,
+        default=None,
         on_delete = models.CASCADE
     )
 
@@ -46,6 +50,6 @@ def get_image_path(instance, filename):
     return "autopart/%s/%s" % (slug, filename)
 
 
-class AutoPartImages(models.Model):
-    autopart = models.ForeignKey(AutoPart, on_delete = models.CASCADE)
+class AutoPartPicture(models.Model):
+    autopart = models.ForeignKey(AutoPart,default=None,on_delete = models.CASCADE)
     image = models.ImageField(upload_to=get_image_path, help_text='upload autopart image')
