@@ -5,10 +5,9 @@ class Category(models.Model):
     name = models.CharField(max_length=50)
     parent = models.ForeignKey(
            'self',
-           default=None,
+           blank = True,
            null=True,
-           blank=True,
-           on_delete=models.CASCADE
+           on_delete=models.DO_NOTHING
        )
     is_class = models.BooleanField()
     created_on = models.DateTimeField(auto_now_add=True)
