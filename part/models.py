@@ -6,6 +6,7 @@ from datetime import datetime
 from brand.models import Brand
 from category.models import Category
 
+from django.template.defaultfilters import slugify
 
 
     
@@ -19,27 +20,23 @@ class AutoPart(models.Model):
 
 class AutoPartCategory(models.Model):
     autopart = models.ForeignKey(
-        AutoPart,
-        default=None,
+        AutoPart,blank=True,null=True,
         on_delete = models.CASCADE
     )
 
     category = models.ForeignKey(
         Category,
-        default=None,
         on_delete = models.CASCADE
     )
 
 class AutoPartBrand(models.Model):
-    autopart = models.ForeignKey(
+    autopart = models.OneToOneField(
         AutoPart,
-        default=None,
         on_delete = models.CASCADE
     )
 
     brand = models.ForeignKey(
         Brand,
-        default=None,
         on_delete = models.CASCADE
     )
 
@@ -47,9 +44,9 @@ class AutoPartBrand(models.Model):
 def get_image_path(instance, filename):
     autopart_number = instance.autopart.part_number
     slug = slugify(autopart_number)
-    return "autopart/%s/%s" % (slug, filename)
+    return "autopart/%s/%s" % (slug, slugify(filename))
 
 
 class AutoPartPicture(models.Model):
-    autopart = models.ForeignKey(AutoPart,default=None,on_delete = models.CASCADE)
+    autopart = models.ForeignKey(AutoPart,on_delete = models.CASCADE)
     image = models.ImageField(upload_to=get_image_path, help_text='upload autopart image')
