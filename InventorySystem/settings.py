@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'phone_field',
+    'django_wysiwyg',
     'djrichtextfield',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -62,7 +63,7 @@ ROOT_URLCONF = 'InventorySystem.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -145,3 +146,5 @@ DJRICHTEXTFIELD_CONFIG = {
         'width': 700
     }
 }
+
+DJANGO_WYSIWYG_FLAVOR = "ckeditor"
