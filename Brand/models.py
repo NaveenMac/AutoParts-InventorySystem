@@ -22,7 +22,7 @@ class Brand(models.Model):
     
 class BrandCategory(models.Model):
     brand = models.ForeignKey(
-        Brand,
+        Brand,blank=True,null=True,
         on_delete = models.CASCADE
     )
     

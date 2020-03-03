@@ -26,7 +26,7 @@ class CarModel(models.Model):
     ]
     
     maker = models.ForeignKey(
-        CarMaker,
+        CarMaker,blank=True,null=True,
         on_delete = models.CASCADE
     )
     model = models.CharField(max_length=100,blank=True)
