@@ -8,6 +8,18 @@ from django.utils.html import mark_safe
 
 class BrandCategoryInline(admin.TabularInline):
     model = BrandCategory
+    class CustomModelChoiceField(forms.ModelChoiceField):
+        def label_from_instance(self, obj):
+            return obj.name
+    
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        
+        if db_field.name == 'category':
+            return self.CustomModelChoiceField(queryset = Category.objects)
+            
+            return super(CategoryAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
+
 
 class BrandAdmin(admin.ModelAdmin):
     fields = ('name','description','website','upload',('contact_name','contact_number'))
@@ -21,20 +33,9 @@ class BrandAdmin(admin.ModelAdmin):
     brand_image.short_description = 'Brand Image'
     brand_image.allow_tags = True
     
-    class CustomModelChoiceField(forms.ModelChoiceField):
-        def label_from_instance(self, obj):
-            return obj.name
-    
-    def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        if db_field.name == 'category':
-            return self.CustomModelChoiceField(queryset = Category.objects)
 
-            return super(CategoryAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
-        
-        if db_field.name == 'brand':
-            return self.CustomModelChoiceField(queryset = Brand.objects)
-        
-            return super(BrandAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+    
+
 
 #class BrandCategoryAdmin(admin.ModelAdmin):
 #    fields = ('brand','category')

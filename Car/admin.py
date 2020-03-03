@@ -6,6 +6,7 @@ from car.models import CarModel
 
 class CarModelInline(admin.TabularInline):
     model = CarModel
+    
 
 class CarMakerAdmin(admin.ModelAdmin):
     fields = ('name','shortName')
