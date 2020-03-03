@@ -3,6 +3,14 @@
 *.pot
 *.pyc
 __pycache__
+brand/__pycache__
+car/__pycache__
+category/__pycache__
+InventorySystem/__pycache__
+Invoice/__pycache__
+part/__pycache__
+seller/__pycache__
+
 db.sqlite3
 media
 
