@@ -8,7 +8,7 @@ from django.utils.html import mark_safe
 
 class SellerCategoryInline(admin.StackedInline):
     model = SellerCategory
-    class CustomModelChoiceField(forms.ModelChoiceField):
+    class CustomModelChoiceField(forms.ModelMultipleChoiceField):
         def label_from_instance(self, obj):
             return obj.name
         
@@ -20,8 +20,10 @@ class SellerCategoryInline(admin.StackedInline):
             return super(CategoryAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 class SellerAdmin(admin.ModelAdmin):
-    fields = ('name','description','website','upload',('contact_name','contact_number'))
     
+    fieldsets = (
+                 ('Seller Information',{
+                  'fields':('name','description','website','upload',('contact_name','contact_number')),}),)
     list_display = ('name','website','seller_image')
     inlines = [SellerCategoryInline]
     readonly_fields = ('seller_image',)

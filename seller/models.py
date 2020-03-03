@@ -16,13 +16,12 @@ class Seller(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
     
 class SellerCategory(models.Model):
-    seller = models.ForeignKey(
+    seller = models.OneToOneField(
         Seller,
         on_delete = models.CASCADE
     )
     
-    category = models.ForeignKey(
-        Category,
-        on_delete = models.CASCADE
+    category = models.ManyToManyField(
+        Category
     )
     
