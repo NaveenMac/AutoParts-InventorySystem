@@ -4,6 +4,7 @@ from djrichtextfield.models import RichTextField
 
 from datetime import datetime
 from brand.models import Brand
+from seller.models import Seller
 from category.models import Category
 
 from django.template.defaultfilters import slugify
@@ -30,16 +31,6 @@ class AutoPart(models.Model):
     feature = RichTextField()
     description = models.TextField(max_length=1000, help_text='Enter a brief description of the part',blank=True)
 
-class AutoPartCategory(models.Model):
-    autopart = models.ForeignKey(
-        AutoPart,blank=True,null=True,
-        on_delete = models.CASCADE
-    )
-
-    category = models.ForeignKey(
-        Category,
-        on_delete = models.CASCADE
-    )
 
 class AutoPartBrand(models.Model):
     autopart = models.OneToOneField(
@@ -47,11 +38,19 @@ class AutoPartBrand(models.Model):
         on_delete = models.CASCADE
     )
 
-    brand = models.ForeignKey(
-        Brand,
-        on_delete = models.CASCADE
+    brand = models.ManyToManyField(
+        Brand
     )
 
+class AutoPartSeller(models.Model):
+    autopart = models.OneToOneField(
+            AutoPart,
+            on_delete = models.CASCADE
+            )
+
+    seller = models.ManyToManyField(
+                                   Seller
+                                   )
 
 def get_image_path(instance, filename):
     autopart_number = instance.autopart.part_number
