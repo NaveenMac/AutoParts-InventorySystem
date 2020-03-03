@@ -8,7 +8,7 @@ from django.utils.html import mark_safe
 
 class BrandCategoryInline(admin.TabularInline):
     model = BrandCategory
-    class CustomModelChoiceField(forms.ModelChoiceField):
+    class CustomModelChoiceField(forms.ModelMultipleChoiceField):
         def label_from_instance(self, obj):
             return obj.name
     
@@ -22,7 +22,8 @@ class BrandCategoryInline(admin.TabularInline):
 
 
 class BrandAdmin(admin.ModelAdmin):
-    fields = ('name','description','website','upload',('contact_name','contact_number'))
+    fieldsets=(('Brand Information',{'fields':('name','description','website','upload',('contact_name','contact_number'))}),)
+    
     
     list_display = ('name','website','brand_image')
     inlines = [BrandCategoryInline]

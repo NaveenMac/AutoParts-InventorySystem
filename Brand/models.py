@@ -21,14 +21,13 @@ class Brand(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
     
 class BrandCategory(models.Model):
-    brand = models.ForeignKey(
+    brand = models.OneToOneField(
         Brand,blank=True,null=True,
         on_delete = models.CASCADE
     )
     
-    category = models.ForeignKey(
-        Category,
-        on_delete = models.CASCADE
+    category = models.ManyToManyField(
+      Category
     )
     
 
