@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'seller',
     'part',
     'brand',
-    'Invoice',
+    'invoice',
     'category',
     ]
 
