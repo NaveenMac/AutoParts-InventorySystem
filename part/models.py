@@ -12,9 +12,21 @@ from django.template.defaultfilters import slugify
     
     
 class AutoPart(models.Model):
+    OEM = 'OM'
+    AFTERMARKET = 'AM'
+    
+    
+    ORIGIN_TYPE_CHOICES = [
+                         (OEM, 'OEM'),
+                         (AFTERMARKET, 'AfterMarket'),
+                         ]
+                         
     part_title = models.CharField(max_length=70)
     part_number = models.CharField(max_length=100)
-    
+    origin = models.CharField(
+                                 max_length=2,
+                                 choices = ORIGIN_TYPE_CHOICES,
+                                 default = OEM)
     feature = RichTextField()
     description = models.TextField(max_length=1000, help_text='Enter a brief description of the part',blank=True)
 
