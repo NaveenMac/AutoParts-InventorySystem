@@ -4,6 +4,7 @@ from part.models import AutoPart
 from part.models import AutoPartPicture
 from part.models import AutoPartSeller
 from part.models import AutoPartBrand
+from part.models import AutoPartCategory
 from category.models import Category
 from brand.models import Brand
 
@@ -25,6 +26,24 @@ class AutoPartSellerInline(admin.TabularInline):
             
             return super(SellerAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
+class AutoPartCategoryInline(admin.TabularInline):
+    model = AutoPartCategory
+    class CustomModelChoiceField(forms.ModelMultipleChoiceField):
+        def label_from_instance(self, obj):
+            return obj.name
+    
+    def formfield_for_manytomany(self, db_field, request, **kwargs):
+       if db_field.name == "category":
+           kwargs["queryset"] = Category.objects.filter(is_class=1)
+       return super().formfield_for_manytomany(db_field, request, **kwargs)
+       
+#    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+#
+#        if db_field.name == 'category':
+#            return self.CustomModelChoiceField(queryset = Category.objects.filter(is_class=1))
+#
+#            return super(CategoryAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+                
 class AutoPartBrandInline(admin.TabularInline):
     model = AutoPartBrand
     class CustomModelChoiceField(forms.ModelMultipleChoiceField):
@@ -42,7 +61,7 @@ class AutoPartAdmin(admin.ModelAdmin):
     fields = ['part_title','part_number','origin','description','feature']
 
     list_display = ('part_title','part_number')
-    inlines = [AutoPartSellerInline,AutoPartBrandInline,AutoPartPictureInline]
+    inlines = [AutoPartSellerInline,AutoPartCategoryInline,AutoPartBrandInline,AutoPartPictureInline]
 
             
 admin.site.register(AutoPart, AutoPartAdmin)

@@ -32,6 +32,16 @@ class AutoPart(models.Model):
     description = models.TextField(max_length=1000, help_text='Enter a brief description of the part',blank=True)
 
 
+class AutoPartCategory(models.Model):
+    autopart = models.OneToOneField(
+        AutoPart,
+        on_delete = models.CASCADE
+    )
+
+    category = models.ManyToManyField(
+        Category
+    )
+
 class AutoPartBrand(models.Model):
     autopart = models.OneToOneField(
         AutoPart,
@@ -55,7 +65,7 @@ class AutoPartSeller(models.Model):
 def get_image_path(instance, filename):
     autopart_number = instance.autopart.part_number
     slug = slugify(autopart_number)
-    return "autopart/%s/%s" % (slug, slugify(filename))
+    return "assets/part/%s/%s" % (slug, slugify(filename))
 
 
 class AutoPartPicture(models.Model):
