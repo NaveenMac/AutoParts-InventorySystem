@@ -12,12 +12,10 @@ class BrandCategoryInline(admin.TabularInline):
         def label_from_instance(self, obj):
             return obj.name
     
-    def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        
-        if db_field.name == 'category':
-            return self.CustomModelChoiceField(queryset = Category.objects)
-            
-            return super(CategoryAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+    def formfield_for_manytomany(self, db_field, request, **kwargs):
+        if db_field.name == "category":
+            kwargs["queryset"] = Category.objects.filter(is_class=1)
+        return super().formfield_for_manytomany(db_field, request, **kwargs)
 
 
 
