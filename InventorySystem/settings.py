@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'brand',
     'invoice',
     'category',
+    'areapincode',
     ]
 
 MIDDLEWARE = [

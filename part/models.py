@@ -6,7 +6,7 @@ from datetime import datetime
 from brand.models import Brand
 from seller.models import Seller
 from category.models import Category
-
+from areapincode.models import AreaPincode
 from django.template.defaultfilters import slugify
 
 
@@ -51,16 +51,21 @@ class AutoPartBrand(models.Model):
     brand = models.ManyToManyField(
         Brand
     )
+    
+
 
 class AutoPartSeller(models.Model):
-    autopart = models.OneToOneField(
+    autopart = models.ForeignKey(
             AutoPart,
             on_delete = models.CASCADE
             )
-
-    seller = models.ManyToManyField(
-                                   Seller
-                                   )
+    
+    seller = models.ForeignKey(Seller,blank=True, null=True, on_delete = models.CASCADE)
+    availability = models.ManyToManyField(AreaPincode)
+    unit_price = models.FloatField(default=0)
+    in_stock = models.PositiveIntegerField(default=0)
+    out_stock = models.PositiveIntegerField(default=0)
+    stock_in_process = models.PositiveIntegerField(default=0)
 
 def get_image_path(instance, filename):
     autopart_number = instance.autopart.part_number
