@@ -5,6 +5,7 @@ from part.models import AutoPartPicture
 from part.models import AutoPartSeller
 from part.models import AutoPartBrand
 from part.models import AutoPartCategory
+from part.models import AutoPartCompatibility
 from category.models import Category
 from brand.models import Brand
 from seller.models import Seller
@@ -16,7 +17,11 @@ from areapincode.models import AreaPincode
 class AutoPartPictureInline(admin.TabularInline):
     model = AutoPartPicture
 
-class AutoPartSellerInline(admin.StackedInline):
+class AutoPartCompatibilityInline(admin.TabularInline):
+    model = AutoPartCompatibility
+
+
+class AutoPartSellerInline(admin.TabularInline):
     model = AutoPartSeller
     fields = ["seller","availability","unit_price","in_stock","out_stock","stock_in_process"]
     
@@ -75,10 +80,10 @@ class AutoPartBrandInline(admin.TabularInline):
 
 
 class AutoPartAdmin(admin.ModelAdmin):
-    fields = ['part_title','part_number','origin','description','feature']
+    fields = [('part_title','part_number'),'origin',('description','feature')]
 
     list_display = ('part_title','part_number')
-    inlines = [AutoPartCategoryInline,AutoPartSellerInline,AutoPartBrandInline,AutoPartPictureInline]
+    inlines = [AutoPartCategoryInline,AutoPartSellerInline,AutoPartBrandInline,AutoPartCompatibilityInline,AutoPartPictureInline]
 
             
 admin.site.register(AutoPart, AutoPartAdmin)

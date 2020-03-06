@@ -7,6 +7,8 @@ from brand.models import Brand
 from seller.models import Seller
 from category.models import Category
 from areapincode.models import AreaPincode
+from car.models import CarMaker
+from car.models import CarModel
 from django.template.defaultfilters import slugify
 
 
@@ -30,7 +32,8 @@ class AutoPart(models.Model):
                                  default = OEM)
     feature = RichTextField()
     description = models.TextField(max_length=1000, help_text='Enter a brief description of the part',blank=True)
-
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
 
 class AutoPartCategory(models.Model):
     autopart = models.OneToOneField(
@@ -66,6 +69,16 @@ class AutoPartSeller(models.Model):
     in_stock = models.PositiveIntegerField(default=0)
     out_stock = models.PositiveIntegerField(default=0)
     stock_in_process = models.PositiveIntegerField(default=0)
+    
+class AutoPartCompatibility(models.Model):
+    autopart = models.ForeignKey(
+            AutoPart,
+            on_delete = models.CASCADE
+            )
+
+    carmaker = models.ForeignKey(CarMaker,blank=True, null=True, on_delete = models.CASCADE)
+    carmodel = models.ManyToManyField(CarModel)
+    
 
 def get_image_path(instance, filename):
     autopart_number = instance.autopart.part_number
