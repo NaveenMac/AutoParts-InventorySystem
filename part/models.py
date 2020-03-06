@@ -34,6 +34,10 @@ class AutoPart(models.Model):
     description = models.TextField(max_length=1000, help_text='Enter a brief description of the part',blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        verbose_name_plural = "Auto Parts"
+    
 
 class AutoPartCategory(models.Model):
     autopart = models.OneToOneField(
