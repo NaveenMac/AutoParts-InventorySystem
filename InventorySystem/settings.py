@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'invoice',
     'category',
     'areapincode',
+    'accounts',
     ]
 
 MIDDLEWARE = [
@@ -149,3 +150,4 @@ DJRICHTEXTFIELD_CONFIG = {
 }
 
 DJANGO_WYSIWYG_FLAVOR = "ckeditor"
+AUTH_USER_MODEL = "accounts.User"
