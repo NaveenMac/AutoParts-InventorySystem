@@ -3,6 +3,8 @@ from areapincode.models import AreaPincode
 # Register your models here.
 class AreaPincodeAdmin(admin.ModelAdmin):
     fields = ('pincode',)
-    
+    list_display = ('pincode',)
+   
+
 admin.site.register(AreaPincode, AreaPincodeAdmin)
 

@@ -1,7 +1,5 @@
 from django.db import models
-from django.db.models import Model
 
-    
 
 
 # Create your models here.
@@ -13,9 +11,9 @@ class CarMaker(models.Model):
        
     class Meta:
         verbose_name_plural = "Car Makers"
-    
 
-class CarModel(models.Model):
+
+class CarMakerModel(models.Model):
     DIESEL = 'DL'
     PETROL = 'PL'
     CNG = 'CG'
@@ -42,4 +40,3 @@ class CarModel(models.Model):
     engine_type = models.CharField(max_length=50,blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
-    

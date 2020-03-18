@@ -7,8 +7,8 @@ from brand.models import Brand
 from seller.models import Seller
 from category.models import Category
 from areapincode.models import AreaPincode
-from car.models import CarMaker
-from car.models import CarModel
+from carmaker.models import CarMaker
+from carmaker.models import CarMakerModel
 from django.template.defaultfilters import slugify
 
 
@@ -81,7 +81,7 @@ class AutoPartCompatibility(models.Model):
             )
 
     carmaker = models.ForeignKey(CarMaker,blank=True, null=True, on_delete = models.CASCADE)
-    carmodel = models.ManyToManyField(CarModel)
+    carmakermodel = models.ManyToManyField(CarMakerModel)
     
 
 def get_image_path(instance, filename):

@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from seller.admin import seller_admin_site
+
 
 
 admin.site.site_header = 'Inventory Admin'
@@ -26,6 +26,5 @@ admin.empty_value_display = '**Empty**'
 urlpatterns = [
    
     path('admin/', admin.site.urls),
-    path('djrichtextfield/', include('djrichtextfield.urls')),
-    path('seller-admin/',seller_admin_site.urls),
+    path('djrichtextfield/', include('djrichtextfield.urls'))
 ]

@@ -1,5 +1,3 @@
-from django.contrib.admin import AdminSite
-
 from django.contrib import admin
 from django import forms
 from seller.models import Seller
@@ -10,12 +8,7 @@ from django.utils.html import mark_safe
 
 
 
-class SellerAdminSite(AdminSite):
-    site_header = "Seller Admin"
-    site_title = "Seller Admin Portal"
-    index_title = "Welcome to Admin Site Portal"
-    
-seller_admin_site = SellerAdminSite(name="seller_admin")
+
 
 
 class SellerCategoryInline(admin.StackedInline):
@@ -46,6 +39,6 @@ class SellerAdmin(admin.ModelAdmin):
     
 
 
-seller_admin_site.register(Seller, SellerAdmin)
+admin.site.register(Seller, SellerAdmin)
 
 

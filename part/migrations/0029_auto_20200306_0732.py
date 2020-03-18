@@ -8,8 +8,7 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('car', '0004_auto_20200304_0625'),
-        ('part', '0028_auto_20200305_1217'),
+         ('part', '0028_auto_20200305_1217'),
     ]
 
     operations = [
@@ -23,14 +22,7 @@ class Migration(migrations.Migration):
             model_name='autopart',
             name='updated_on',
             field=models.DateTimeField(auto_now=True),
-        ),
-        migrations.CreateModel(
-            name='AutoPartCompatibility',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('autopart', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='part.AutoPart')),
-                ('carmaker', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='car.CarMaker')),
-                ('carmodel', models.ManyToManyField(to='car.CarModel')),
-            ],
-        ),
+        )
     ]
+
+
